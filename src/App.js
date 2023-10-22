@@ -1,14 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { createBrowserRouter, BrowserRouter, RouterProvider, Outlet } from "react-router-dom"
-import Header from "../components/Header"
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
+import Header from "./components/Header"
 import { MoralisProvider } from "react-moralis"
 import { NotificationProvider } from "web3uikit"
-import Manufacturer from "./manufacturer"
-import Distributor from "./distributor"
-import Pharmacy from "./pharmacy"
-import Patient from "./patient"
-import Error from "../components/Error"
+import Manufacturer from "./pages/Manufacturer"
+import Distributor from "./pages/Distributor"
+import Pharmacy from "./pages/Pharmacy"
+import Patient from "./pages/Patient"
+import Error from "./components/Error"
+import Register from "./pages/Register"
 
 function AppLayout() {
     return (
@@ -27,6 +28,10 @@ const appRouter = createBrowserRouter([
         element: <AppLayout />,
         errorElement: <Error />,
         children: [
+            {
+                path: "/register",
+                element: <Register />,
+            },
             {
                 path: "/manufacturer",
                 element: <Manufacturer />,

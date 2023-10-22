@@ -2,7 +2,7 @@ import { useWeb3Contract, useMoralis } from "react-moralis"
 import supplyChainAbi from "../constants/SupplyChain.json"
 import networkMapping from "../constants/networkMapping.json"
 import { useState } from "react"
-export default function Home() {
+export default function Register() {
     const { isWeb3Enabled, chainId, account } = useMoralis()
     const chainString = chainId ? parseInt(chainId).toString() : "31337"
     const supplyChainAddress = chainId ? networkMapping[chainString].SupplyChain[0] : null
