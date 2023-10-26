@@ -14,7 +14,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "DrugBought",
+        "name": "DrugApproved",
         "type": "event"
     },
     {
@@ -27,7 +27,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "DrugCreated",
+        "name": "DrugFormulated",
         "type": "event"
     },
     {
@@ -36,11 +36,11 @@
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "drugId",
+                "name": "LotId",
                 "type": "uint256"
             }
         ],
-        "name": "DrugReceived",
+        "name": "LotManufactured",
         "type": "event"
     },
     {
@@ -49,12 +49,114 @@
             {
                 "indexed": false,
                 "internalType": "uint256",
-                "name": "drugId",
+                "name": "LotId",
                 "type": "uint256"
             }
         ],
-        "name": "DrugShipped",
+        "name": "LotReceived",
         "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "LotId",
+                "type": "uint256"
+            }
+        ],
+        "name": "LotShipped",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "LotId",
+                "type": "uint256"
+            }
+        ],
+        "name": "MedicineBought",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_distributor",
+                "type": "address"
+            }
+        ],
+        "name": "IsDistributor",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "IsManufacturer",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_patient",
+                "type": "address"
+            }
+        ],
+        "name": "IsPatient",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_pharmacy",
+                "type": "address"
+            }
+        ],
+        "name": "IsPharmacy",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
@@ -116,7 +218,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "buyDrug",
+        "name": "approveDrug",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -124,53 +226,40 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "_lotId",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyMedicine",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "drugIngredientCompositions",
+        "outputs": [
+            {
                 "internalType": "string",
-                "name": "_name",
+                "name": "ingredient",
                 "type": "string"
             },
             {
                 "internalType": "uint256",
-                "name": "_quantity",
+                "name": "composition",
                 "type": "uint256"
-            }
-        ],
-        "name": "createDrug",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "drugCount",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "drugToPatient",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
             }
         ],
         "stateMutability": "view",
@@ -197,31 +286,6 @@
                 "type": "string"
             },
             {
-                "internalType": "uint256",
-                "name": "quantity",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "manufacturer",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "distributor",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "pharmacy",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "patient",
-                "type": "address"
-            },
-            {
                 "internalType": "enum SupplyChain.DrugState",
                 "name": "state",
                 "type": "uint8"
@@ -231,73 +295,33 @@
         "type": "function"
     },
     {
-        "inputs": [],
-        "name": "getDrugCount",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_drugId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getDrugDistributor",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_drugId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getDrugManufacturer",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_drugId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getDrugName",
-        "outputs": [
             {
                 "internalType": "string",
-                "name": "",
+                "name": "_name",
                 "type": "string"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "ingredient",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "composition",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct SupplyChain.ingredientToComposition[]",
+                "name": "_ingredients",
+                "type": "tuple[]"
             }
         ],
-        "stateMutability": "view",
+        "name": "formulateDrug",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -308,12 +332,29 @@
                 "type": "uint256"
             }
         ],
-        "name": "getDrugPatient",
+        "name": "getDrugById",
         "outputs": [
             {
-                "internalType": "address",
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "enum SupplyChain.DrugState",
+                        "name": "state",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct SupplyChain.Drug",
                 "name": "",
-                "type": "address"
+                "type": "tuple"
             }
         ],
         "stateMutability": "view",
@@ -327,12 +368,24 @@
                 "type": "uint256"
             }
         ],
-        "name": "getDrugPharmacy",
+        "name": "getDrugIngredientCompositions",
         "outputs": [
             {
-                "internalType": "address",
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "ingredient",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "composition",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct SupplyChain.ingredientToComposition[]",
                 "name": "",
-                "type": "address"
+                "type": "tuple[]"
             }
         ],
         "stateMutability": "view",
@@ -342,16 +395,58 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_drugId",
+                "name": "_lotId",
                 "type": "uint256"
             }
         ],
-        "name": "getDrugQuantity",
+        "name": "getLotById",
         "outputs": [
             {
-                "internalType": "uint256",
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "drugId",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "quantity",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "manufacturer",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "distributor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "pharmacy",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "enum SupplyChain.LotState",
+                        "name": "state",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct SupplyChain.Lot",
                 "name": "",
-                "type": "uint256"
+                "type": "tuple"
             }
         ],
         "stateMutability": "view",
@@ -361,30 +456,11 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_drugId",
+                "name": "_lotId",
                 "type": "uint256"
             }
         ],
-        "name": "getDrugState",
-        "outputs": [
-            {
-                "internalType": "enum SupplyChain.DrugState",
-                "name": "",
-                "type": "uint8"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_drugId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getDrugToPatient",
+        "name": "getLotToPatient",
         "outputs": [
             {
                 "internalType": "address[]",
@@ -472,6 +548,107 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "lotToPatient",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "lots",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "drugId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "quantity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "manufacturer",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "distributor",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "pharmacy",
+                "type": "address"
+            },
+            {
+                "internalType": "enum SupplyChain.LotState",
+                "name": "state",
+                "type": "uint8"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_quantity",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_drugId",
+                "type": "uint256"
+            }
+        ],
+        "name": "manufacturLot",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "owner",
         "outputs": [
@@ -488,7 +665,7 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_drugId",
+                "name": "_lotId",
                 "type": "uint256"
             }
         ],
@@ -501,11 +678,11 @@
         "inputs": [
             {
                 "internalType": "uint256",
-                "name": "_drugId",
+                "name": "_lotId",
                 "type": "uint256"
             }
         ],
-        "name": "shipDrug",
+        "name": "shipLot",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

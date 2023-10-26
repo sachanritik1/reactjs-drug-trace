@@ -13,18 +13,20 @@ export default function Manufacturer() {
     console.log(account)
 
     const [drugName, setDrugName] = useState("")
-    const [drugQuantity, setDrugQuantity] = useState("")
+    const [ingredients, setIngredients] = useState([])
+    const [ingredient, setIngredient] = useState("")
+    const [composition, setComposition] = useState("")
 
-    async function createDrug(drugName, drugQuantity) {
+    async function formulateDrug(drugName, ingredients) {
         event.preventDefault()
         const returnedProceeds = await runContractFunction({
             params: {
                 abi: supplyChainAbi,
                 contractAddress: supplyChainAddress,
-                functionName: "createDrug",
+                functionName: "formulateDrug",
                 params: {
                     _name: drugName,
-                    _quantity: drugQuantity,
+                    _ingredients: ingredients,
                 },
             },
             onError: (error) => {
@@ -32,14 +34,14 @@ export default function Manufacturer() {
                 console.log(error)
             },
         })
+        console.log(returnedProceeds)
     }
 
     return (
-        <div class="manufacturer">
-            <h1> </h1>
+        <div className="manufacturer">
             <div>
                 {isWeb3Enabled ? (
-                    <form onSubmit={() => createDrug(drugName, drugQuantity)}>
+                    <form onSubmit={() => formulateDrug(drugName, ingredients)}>
                         <input
                             type="text"
                             placeholder="Drug name"
@@ -48,14 +50,40 @@ export default function Manufacturer() {
                         />
                         <br></br>
                         <input
-                            type="number"
-                            placeholder="Drug quantity"
-                            value={drugQuantity}
-                            onChange={(event) => setDrugQuantity(event.target.value)}
+                            type="text"
+                            placeholder="ingredient"
+                            value={ingredient}
+                            onChange={(event) => setIngredient(event.target.value)}
                         />
+                        <input
+                            type="number"
+                            placeholder="composition"
+                            value={composition}
+                            onChange={(event) => setComposition(event.target.value)}
+                        />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIngredients([
+                                    ...ingredients,
+                                    { ingredient: ingredient, composition: composition },
+                                ])
+                                setComposition("")
+                                setIngredient("")
+                            }}
+                        >
+                            Add Ingredient
+                        </button>
                         <br></br>
+                        <ul>
+                            {ingredients.map((ingredient, index) => (
+                                <li key={index}>
+                                    {ingredient.ingredient} - {ingredient.composition}
+                                </li>
+                            ))}
+                        </ul>
 
-                        <button class="btn">Create Drug</button>
+                        <button type="submit">Formulate Drug</button>
                     </form>
                 ) : (
                     <div>Web3 Currently Not Enabled</div>
